@@ -1,0 +1,20 @@
+{
+  "name": "compx322assn4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client-dev": "cd reac-assn4 && npm run dev",
+    "server-dev": "cd server && node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wowissu/compx322assn4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wowissu/compx322assn4/issues"
+  },
+  "homepage": "https://github.com/wowissu/compx322assn4#readme"
+}
