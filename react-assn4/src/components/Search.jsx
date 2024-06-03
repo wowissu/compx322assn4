@@ -4,7 +4,6 @@ import { useMergeState } from "../composiable/useMergeState";
 const defaultSearching = {
   name: "",
   description: "",
-  // enddate: "",
 };
 
 export default function Search(props) {
@@ -21,6 +20,7 @@ export default function Search(props) {
     <div className="p-4 py-6 rounded-lg bg-gray-50 dark:bg-gray-800 md:p-8">
       <form className="space-y-4" onSubmit={emitSubmit}>
         <div className="-mx-2 md:items-center md:flex">
+          {/* Event Input */}
           <div className="flex-1 px-2">
             <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
               Event name
@@ -34,6 +34,7 @@ export default function Search(props) {
             />
           </div>
 
+          {/* Description Input */}
           <div className="flex-1 px-2">
             <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
               Description
@@ -46,19 +47,6 @@ export default function Search(props) {
               onChange={(e) => setSearching({ description: e.target.value })}
             />
           </div>
-
-          {/* <div className="flex-1 px-2 mt-4 md:mt-0">
-            <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-              End date
-            </label>
-            <input
-              type="datetime-local"
-              name="enddate"
-              className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-              value={searching.enddate}
-              onChange={(e) => setSearching({ enddate: e.target.value })}
-            />
-          </div> */}
         </div>
 
         <div className="flex">

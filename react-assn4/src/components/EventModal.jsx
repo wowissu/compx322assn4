@@ -3,10 +3,22 @@ import { useEsc } from "../composiable/useEscTrigger";
 import { useModal } from "../composiable/useModal";
 import { useMergeState } from "../composiable/useMergeState";
 
+/**
+ * Modal component for displaying a modal dialog.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {Object} props.value - The initial value for the modal's state.
+ * @param {Function} [props.onSubmit] - Callback to handle form submission.
+ * @param {Function} [props.onClickOutside] - Optional callback for clicks outside the modal.
+ * @param {boolean} [props.clickOutsideToClose=false] - Whether to close the modal on outside click.
+ * @returns {JSX.Element} - The rendered modal component.
+ */
 function Modal(props) {
   const [value, setValue] = useMergeState(props.value);
   const { emitClickOutside, emitClose, emit } = useModal(props);
   const emitSubmit = emit("onSubmit");
+
+  // Close the modal when the Escape key is pressed
   useEsc(emitClose, []);
 
   return createPortal(
@@ -141,6 +153,7 @@ function Modal(props) {
 }
 
 export function CreateEventModal(props) {
+  // Define an empty event object with default values
   const emptyEvent = {
     name: "",
     description: "",
@@ -148,8 +161,14 @@ export function CreateEventModal(props) {
     enddate: "",
   };
 
+  /**
+   * Handles form submission.
+   *
+   * @param {Object} event - The event object containing form data.
+   * @throws {Error} - Throws an error if any form field is empty.
+   */
   function onSubmit(event) {
-    // check form
+    // Check form fields for empty values
     for (let attr in event) {
       const content = event[attr];
 
@@ -158,6 +177,7 @@ export function CreateEventModal(props) {
       }
     }
 
+    // Call the onSubmit prop with the event data
     props.onSubmit(event);
   }
 

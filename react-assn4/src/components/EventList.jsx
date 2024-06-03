@@ -8,20 +8,42 @@ import IconArrowUp from "./icons/IconArrowUp";
 import IconSort from "./icons/IconSort";
 
 export default function EventList(props) {
-  const [sorting, { setSorting, restore: restoreSorting }] = useSorting();
+  const [sorting, { setSorting }] = useSorting();
 
+  /**
+   * Formats a date string.
+   *
+   * @param {string} date - The date string to format.
+   * @returns {string} - The formatted date.
+   */
   function dateFormat(date) {
     return dayjs(date).format("DD MMM YYYY");
   }
 
+  /**
+   * Formats a time string.
+   *
+   * @param {string} time - The time string to format.
+   * @returns {string} - The formatted time.
+   */
   function timeFormat(time) {
     return dayjs(time).format("HH:mm");
   }
 
+  /**
+   * Emits the delete event.
+   *
+   * @param {Object} event - The event to delete.
+   */
   function emitDelete(event) {
     props.onDelete(event);
   }
 
+  /**
+   * Emits the sort event.
+   *
+   * @param {string} column - The column to sort by.
+   */
   function emitSort(column) {
     let newSorting = Object.assign({}, sorting);
 
@@ -45,6 +67,7 @@ export default function EventList(props) {
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                {/* Columns */}
                 <thead className="bg-gray-50 dark:bg-gray-800">
                   <tr>
                     <th
@@ -116,14 +139,12 @@ export default function EventList(props) {
                     </th>
                   </tr>
                 </thead>
+                {/* TableBody */}
                 <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                   {props.data.map((event) => (
                     <tr key={event.id}>
                       <td className="pl-12 pr-4 py-4 text-sm whitespace-nowrap">
                         #{event.id}
-                        {/* <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                          Customer
-                        </div> */}
                       </td>
 
                       <td className="px-4 py-4 text-sm whitespace-nowrap">

@@ -2,8 +2,23 @@ import { createPortal } from "react-dom";
 import { useEsc } from "../composiable/useEscTrigger";
 import { useModal } from "../composiable/useModal";
 
+/**
+ * ConfirmModal component for displaying a confirmation dialog.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {boolean} props.show - Whether to show the modal.
+ * @param {Function} [props.onOK] - Callback to handle confirmation.
+ * @param {Function} [props.onCancel] - Callback to handle cancellation.
+ * @param {Function} [props.onClickOutside] - Optional callback for clicks outside the modal.
+ * @param {boolean} [props.clickOutsideToClose=false] - Whether to close the modal on outside click.
+ * @param {string} props.title - The title of the modal.
+ * @param {React.ReactNode} [props.children] - Optional children elements to render inside the modal.
+ * @returns {JSX.Element|null} - The rendered modal component or null if not shown.
+ */
 export default function ConfirmModal(props) {
   const { emitClickOutside, emitCancel, emitOK } = useModal(props);
+
+  // Close the modal when the Escape key is pressed
   useEsc(emitCancel);
 
   return props.show
