@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  "learn-mysql.cms.waikato.ac.nz":
+    container_name: compx322assn4_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=zs284
+      - MYSQL_USER=zs284
+      - MYSQL_PASSWORD=my525041sql
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - SERVICE_TAGS=dev
+      - SERVICE_NAME=mysql
+    networks:
+      - compx322
+    volumes:
+      - "./sql:/docker-entrypoint-initdb.d"
+      - "sql:/var/lib/mysql"
+
+  backend:
+    container_name: compx322assn4_backend
+    image: node:18.18.0-bullseye
+    working_dir: /workspaces
+    depends_on: 
+      - "learn-mysql.cms.waikato.ac.nz"
+    tty: true
+    ports:
+      - "3000:3000"
+    networks:
+      - compx322
+    command: node app.js
+    volumes:
+      - "../server:/workspaces"
+  
+  frontend: 
+    container_name: compx322assn4_frontend
+    image: node:18.18.0-bullseye
+    working_dir: /workspaces/react-assn4
+    tty: true
+    ports:
+      - "8000:8000"
+    networks:
+      - compx322
+    volumes:
+      - "~/.ssh:/root/.ssh:ro"
+      - "..:/workspaces"
+
+networks:
+  compx322:
+    name: compx322
+    driver: bridge
+
+volumes:
+  sql:
+    driver: local
